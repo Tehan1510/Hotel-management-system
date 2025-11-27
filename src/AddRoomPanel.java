@@ -88,7 +88,7 @@ public class AddRoomPanel extends JPanel {
         gbc.gridy++;
         addLabel(formContainer, "Assign Staff Member", gbc, 0, gbc.gridy, 2);
         gbc.gridy++;
-        String[] staff = {"Unassigned", "John Doe (Housekeeping)", "Jane Smith (Maintenance)", "Mike Brown (Manager)"};
+        String[] staff = {"Unassigned", "John Doe (Housekeeping)", "Jane Smith (Maintenance)", "Mike Brown (Manager)", "Jane Smith (Receptionist)"};
         staffCombo = addComboBox(formContainer, staff, "Unassigned", gbc, 0, gbc.gridy, 2);
 
         // --- Row 5: Update Button ---

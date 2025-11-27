@@ -92,7 +92,7 @@ public class AddStaffPanel extends JPanel {
 
         // Dropdowns
         addComboBox(formContainer, new String[]{"Mr", "Ms", "Mrs"}, "Mr", gbc, 2, gbc.gridy, 1);
-        addComboBox(formContainer, new String[]{"Role", "Admin", "Manager", "Staff"}, "Role", gbc, 3, gbc.gridy, 1);
+        addComboBox(formContainer, new String[]{"Role", "Admin", "Manager", "Receptionist", "Staff"}, "Role", gbc, 3, gbc.gridy, 1);
 
         // --- Row 4: Email & Phone ---
         gbc.gridy++;
