@@ -15,6 +15,12 @@ public class AdminDashboardFrame extends JFrame {
     private JPanel mainContentPanel;
     private CardLayout cardLayout;
 
+    private final ReceptionistStaffManagement receptionistBackend = new ReceptionistStaffManagement();
+    // Guest activity backend
+    private final GuestActivityManagement guestActivityBackend = new GuestActivityManagement();
+
+
+
     // --- Color Constants ---
     private final Color SELECTED_COLOR = new Color(255, 180, 60);
     private final Color DEFAULT_COLOR = new Color(40, 40, 40);
@@ -84,6 +90,7 @@ public class AdminDashboardFrame extends JFrame {
         mainContentPanel.add(new AddStaffPanel(), "AddStaff");
         mainContentPanel.add(new RemoveStaffPanel(), "DeleteStaff");
         mainContentPanel.add(new ViewStaffPanel(), "ViewStaff");
+        mainContentPanel.add(new GuestActivityPanel(guestActivityBackend), "GuestActivity");
         mainContentPanel.add(new PriceAdjustmentPanel(), "PriceAdjustment");
         mainContentPanel.add(new AddRoomPanel(), "AddRooms"); // Renamed to "Update Status" in UI, keeping ID same
 
@@ -161,6 +168,21 @@ public class AdminDashboardFrame extends JFrame {
         featuresPanel.add(createSmallButton("NEW", new Color(255, 100, 100)));
         featuresPanel.setBorder(new EmptyBorder(10, 15, 10, 15));
         sidebar.add(featuresPanel);
+
+        // --- Guest Activity Button ---
+        JButton btnGuestActivity = new JButton("Guest Activity");
+        btnGuestActivity.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        btnGuestActivity.setBounds(10, 360, 170, 40); // adjust Y position if needed
+        btnGuestActivity.setFocusPainted(false);
+        btnGuestActivity.setBackground(new Color(50, 50, 50));
+        btnGuestActivity.setForeground(Color.WHITE);
+
+        btnGuestActivity.addActionListener(e -> {
+            cardLayout.show(mainContentPanel, "GuestActivity");
+        });
+
+        sidebar.add(btnGuestActivity);
+
 
         return sidebar;
     }
@@ -480,13 +502,40 @@ public class AdminDashboardFrame extends JFrame {
         panel.add(title);
         panel.add(Box.createVerticalStrut(20));
 
-        panel.add(createStaffItem("Administrative Staff", "78 Registered", 32));
+        int adminCount = 78;
+        int restaurantCount = 60;
+        int maintenanceCount = 80;
+        int housekeepingCount = 104;
+
+// NEW — receptionist count from backend
+        int receptionistCount = receptionistBackend.getAllReceptionists().size();
+
+        int total = adminCount + restaurantCount + maintenanceCount + housekeepingCount + receptionistCount;
+        if (total == 0) total = 1;
+
+        int adminPct = (adminCount * 100) / total;
+        int restaurantPct = (restaurantCount * 100) / total;
+        int maintenancePct = (maintenanceCount * 100) / total;
+        int housekeepingPct = (housekeepingCount * 100) / total;
+        int receptionistPct = (receptionistCount * 100) / total;
+
+        panel.add(createStaffItem("Administrative Staff", adminCount + " Registered", adminPct));
         panel.add(Box.createVerticalStrut(10));
-        panel.add(createStaffItem("Restaurant Staff", "60 Registered", 43));
+
+        panel.add(createStaffItem("Restaurant Staff", restaurantCount + " Registered", restaurantPct));
         panel.add(Box.createVerticalStrut(10));
-        panel.add(createStaffItem("Maintenance Staff", "80 Registered", 67));
+
+        panel.add(createStaffItem("Maintenance Staff", maintenanceCount + " Registered", maintenancePct));
         panel.add(Box.createVerticalStrut(10));
-        panel.add(createStaffItem("House Keeping", "104 Registered", 56));
+
+        panel.add(createStaffItem("House Keeping", housekeepingCount + " Registered", housekeepingPct));
+        panel.add(Box.createVerticalStrut(10));
+
+// NEW — Receptionists
+        panel.add(createStaffItem("Receptionists", receptionistCount + " Registered", receptionistPct));
+        panel.add(Box.createVerticalStrut(10));
+
+
 
         return panel;
     }

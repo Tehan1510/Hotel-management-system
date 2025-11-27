@@ -79,7 +79,7 @@ public class RemoveStaffPanel extends JPanel {
 
         // Split the row for two dropdowns
         addComboBox(formContainer, new String[]{"Mr", "Ms", "Mrs"}, "Mr", gbc, 0, gbc.gridy, 1);
-        addComboBox(formContainer, new String[]{"Role", "Admin", "Manager", "Staff"}, "Role", gbc, 1, gbc.gridy, 1);
+        addComboBox(formContainer, new String[]{"Role", "Admin", "Manager", "Receptionist", "Staff"}, "Role", gbc, 1, gbc.gridy, 1);
 
         // --- Row 4: Remove Button ---
         gbc.gridy++;
